@@ -537,6 +537,9 @@
 %<*package>
 % \fi
 %    \begin{macrocode}
+
+\ifTS@loadBareEnvs
+\else
   \mdfdefinestyle{exercise}{%
     skipabove=\envVertSkip, skipbelow=\envVertSkip,%
     innertopmargin=\headerOffset,%
@@ -560,12 +563,23 @@
     linecolor=line-black,%
     linewidth=.01cm%
   }
+\fi
 
   \theoremstyle{BreakBoldNoNumber}
+
+  \ifTS@loadBareEnvs
+  \newtheorem{exercise}{Exercise}
+  \else
   \newmdtheoremenv[style=exercise]{exercise}{Exercise}
+  \fi
 
   \theoremstyle{NoBreak}
+
+  \ifTS@loadBareEnvs
+  \newtheorem{subExr}{}
+  \else
   \newmdtheoremenv[style=subExr]{subExr}{}
+  \fi
 
 %    \end{macrocode}
 % \iffalse
