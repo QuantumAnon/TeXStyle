@@ -255,6 +255,9 @@
   {}{\bfseries}{}{\newline}%
   {\thmname{#1}: \thmnote{#3}}
 
+
+  \ifTS@loadBareEnvs
+  \else
   \mdfdefinestyle{proposition}{%
     skipabove=\envVertSkip,%
     skipbelow=\envVertSkip,%
@@ -278,16 +281,28 @@
     linecolor=line-grey,%
     linewidth=.05cm%
   }
+  \fi
+
   \ifTS@HyperrefMacros
     \newaliascnt{proposition}{theorem}
     \theoremstyle{Proposition}
+
+    \ifTS@loadBareEnvs
+    \newtheorem{proposition}[proposition]{Proposition}
+    \else
     \newmdtheoremenv[style=proposition]{proposition}%
     [proposition]{Proposition}
+    \fi
     \aliascntresetthe{proposition}
 
     % Refreshes every proposition
     \theoremstyle{NoBreakBold}
+
+    \ifTS@loadBareEnvs
+    \newtheorem{subPro}{}[proposition]
+    \else
     \newmdtheoremenv[style=subPro]{subPro}{}[proposition]
+    \fi
 
     % autoref commands
     \providecommand*{\propositionautorefname}{Proposition}
@@ -295,17 +310,32 @@
 
   \else
     \theoremstyle{Proposition}
+
+    \ifTS@loadBareEnvs
+    \newtheorem{proposition}[theorem]{Proposition}
+    \else
     \newmdtheoremenv[style=proposition]{proposition}%
     [theorem]{Proposition}
+    \fi
 
     % Refreshes counter every proposition
     \theoremstyle{NoBreakBold}
+
+    \ifTS@loadBareEnvs
+    \newtheorem{subPro}{}[theorem]
+    \else
     \newmdtheoremenv[style=subPro]{subPro}{}[theorem]
+    \fi
   \fi
 
   \theoremstyle{Proposition*}
+
+  \ifTS@loadBareEnvs
+  \newtheorem*{proposition*}{Proposition}
+  \else
   \newmdtheoremenv[style=proposition]{proposition*}%
   {Proposition}
+  \fi
 
 %    \end{macrocode}
 % \iffalse
