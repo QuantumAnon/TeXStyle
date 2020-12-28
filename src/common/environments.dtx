@@ -712,32 +712,50 @@
 %<*package>
 % \fi
 %    \begin{macrocode}
-  \mdfdefinestyle{remark}{%
-    skipabove=\envVertSkip, skipbelow=\envVertSkip,%
-    innertopmargin=\headerOffset, innerbottommargin=0cm,%
-    innerleftmargin=\envLeftSkip,%
-    hidealllines=true,%
-    leftline=true,%
-    linecolor=line-black%
-    }
+
+  \ifTS@loadBareEnvs
+  \else
+    \mdfdefinestyle{remark}{%
+      skipabove=\envVertSkip, skipbelow=\envVertSkip,%
+      innertopmargin=\headerOffset, innerbottommargin=0cm,%
+      innerleftmargin=\envLeftSkip,%
+      hidealllines=true,%
+      leftline=true,%
+      linecolor=line-black%
+      }
+  \fi
 
   \ifTS@HyperrefMacros
     \theoremstyle{BreakBold}
 
     \newaliascnt{remark}{theorem}
 
+    \ifTS@loadBareEnvs
+    \newtheorem{remark}[remark]{Remark}
+    \else
     \newmdtheoremenv[style=remark]{remark}[remark]{Remark}
+    \fi
 
     \aliascntresetthe{remark}
 
     \providecommand*{\remarkautorefname}{Remark}
   \else
     \theoremstyle{BreakBold}
+
+    \ifTS@loadBareEnvs
+    \newtheorem{remark}{Remark}
+    \else
     \newmdtheoremenv[style=remark]{remark}{Remark}
+    \fi
   \fi
 
     \theoremstyle{BreakBoldNoNumber}
+
+    \ifTS@loadBareEnvs
+    \newtheorem*{remark*}{Remark}
+    \else
     \newmdtheoremenv[style=remark]{remark*}{Remark}
+    \fi
 
 %    \end{macrocode}
 % \iffalse
