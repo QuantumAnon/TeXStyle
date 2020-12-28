@@ -459,6 +459,9 @@
 %<*package>
 % \fi
 %    \begin{macrocode}
+
+\ifTS@loadBareEnvs
+\else
   \mdfdefinestyle{example}{%
     skipabove=\envVertSkip, skipbelow=\envVertSkip,%
     % want the top and bottom of the example to be
@@ -483,24 +486,44 @@
     linecolor=line-black,%
     linewidth=.01cm%
   }
+\fi
 
   \ifTS@HyperrefMacros
     \theoremstyle{BreakBold}
 
     \newaliascnt{example}{theorem}
+
+    \ifTS@loadBareEnvs
+    \newtheorem{example}[example]{Example}
+    \else
     \newmdtheoremenv[style=example]{example}[example]{Example}
+    \fi
     \aliascntresetthe{example}
   \else
     \theoremstyle{BreakBold}
 
+    \ifTS@loadBareEnvs
+    \newtheorem{example}[theorem]{Example}
+    \else
     \newmdtheoremenv[style=example]{example}[theorem]{Example}
+    \fi
   \fi
 
   \theoremstyle{NoBreakNoNumber}
+
+  \ifTS@loadBareEnvs
+  \newtheorem{subExa}{}
+  \else
   \newmdtheoremenv[style=subExa]{subExa}{}
+  \fi
 
   \theoremstyle{BreakBoldNoNumber}
+
+  \ifTS@loadBareEnvs
+  \newtheorem*{example*}{Example}
+  \else
   \newmdtheoremenv[style=example]{example*}{Example}
+  \fi
 
 %    \end{macrocode}
 % \iffalse
