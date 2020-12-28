@@ -651,35 +651,54 @@
 %<*package>
 % \fi
 %    \begin{macrocode}
-  \mdfdefinestyle{corollary}{%
-    skipabove=\envVertSkip, skipbelow=\envVertSkip,%
-    innertopmargin=\headerOffset, innerbottommargin=0cm,%
-    innerleftmargin=\envLeftSkip,%
-    hidealllines=true,%
-    leftline=true,%
-    linecolor=accent-blue,%
-    linewidth=.05cm%
-    }
+
+    \ifTS@loadBareEnvs
+    \else
+      \mdfdefinestyle{corollary}{%
+        skipabove=\envVertSkip, skipbelow=\envVertSkip,%
+        innertopmargin=\headerOffset, innerbottommargin=0cm,%
+        innerleftmargin=\envLeftSkip,%
+        hidealllines=true,%
+        leftline=true,%
+        linecolor=accent-blue,%
+        linewidth=.05cm%
+        }
+    \fi
+
     \ifTS@HyperrefMacros
       \theoremstyle{BreakBold}
 
       \newaliascnt{corollary}{theorem}
-      
+
+      \ifTS@loadBareEnvs
+      \newtheorem{corollary}[corollary]{Corollary}
+      \else
       \newmdtheoremenv[style=corollary]{corollary}%
       [corollary]{Corollary}
+      \fi
 
       \aliascntresetthe{corollary}
 
       \providecommand*{\corollaryautorefname}{Corollary}
     \else
       \theoremstyle{BreakBold}
+
+      \ifTS@loadBareEnvs
+      \newtheorem{corollary}[theorem]{Corollary}
+      \else
       \newmdtheoremenv[style=corollary]{corollary}%
         [theorem]{Corollary}
+      \fi
     \fi
 
       \theoremstyle{BreakBoldNoNumber}
+
+      \ifTS@loadBareEnvs
+      \newtheorem*{corollary*}{Corollary}
+      \else
       \newmdtheoremenv[style=corollary]{corollary*}%
         {Corollary}
+      \fi
 
 %    \end{macrocode}
 % \iffalse
