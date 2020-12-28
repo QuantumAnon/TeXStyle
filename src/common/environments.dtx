@@ -357,6 +357,12 @@
     {}{\sffamily\bfseries}{}{\newline}%
     {\ \thmname{#1}:\thmnote{#3}}
 
+  \newtheoremstyle{SubDefinition}{}{}{\sffamily}%
+    {}{\bfseries}{}{.5em}%
+    {\thmname{#1}\ \thmnumber{#2}:\ \thmnote{#3}}
+
+    \ifTS@loadBareEnvs
+    \else
   \mdfdefinestyle{definition}{%
     skipabove=\envVertSkip,%
     skipbelow=\envVertSkip,%
@@ -367,10 +373,6 @@
     linewidth=.05cm,%
     nobreak%
     }
-
-  \newtheoremstyle{SubDefinition}{}{}{\sffamily}%
-    {}{\bfseries}{}{.5em}%
-    {\thmname{#1}\ \thmnumber{#2}:\ \thmnote{#3}}
 
   \mdfdefinestyle{subDef}
   {%
@@ -387,18 +389,31 @@
     linecolor=line-black,
     linewidth=.01cm
   }
+    \fi
+
   \ifTS@HyperrefMacros
       \theoremstyle{Definition}
 
     \newaliascnt{definition}{theorem}
+
+    \ifTS@loadBareEnvs
+    \newtheorem{definition}[definition]{Definition}
+    \else
     \newmdtheoremenv[style=definition]{definition}%
     [definition]{Definition}
+    \fi
 
     \aliascntresetthe{definition}
+
     \theoremstyle{SubDefinition}
 
     % Refreshes every definition
+
+    \ifTS@loadBareEnvs
+    \newtheorem{subDef}{}[definition]
+    \else
     \newmdtheoremenv[style=subDef]{subDef}{}[definition]
+    \fi
 
     \providecommand*{\definitionautorefname}{Definition}
     \providecommand*{\subDefautorefname}{Definition}
@@ -406,18 +421,31 @@
   \else
     \theoremstyle{Definition}
 
+    \ifTS@loadBareEnvs
+    \newtheorem{definition}[theorem]{Definition}
+    \else
     \newmdtheoremenv[style=definition]{definition}%
     [theorem]{Definition}
+    \fi
 
     \theoremstyle{SubDefinition}
     % Refreshes every definition
+
+    \ifTS@loadBareEnvs
+    \newtheorem{subDef}{}[theorem]
+    \else
     \newmdtheoremenv[style=subDef]{subDef}{}[theorem]
+    \fi
   \fi
 
     \theoremstyle{Definition*}
 
+    \ifTS@loadBareEnvs
+    \newtheorem*{definition*}{Definition}
+    \else
     \newmdtheoremenv[style=definition]{definition*}%
     {Definition}
+    \fi
 
 %    \end{macrocode}
 % \iffalse
