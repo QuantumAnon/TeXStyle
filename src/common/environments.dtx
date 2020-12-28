@@ -593,6 +593,9 @@
 %<*package>
 % \fi
 %    \begin{macrocode}
+
+\ifTS@loadBareEnvs
+\else
   \mdfdefinestyle{lemma}{%
     skipabove=\envVertSkip, skipbelow=\envVertSkip,%
     innertopmargin=\headerOffset,%
@@ -602,24 +605,39 @@
     leftline=true, linecolor=line-grey,%
     linewidth=.05cm%
   }
+\fi
+
   \ifTS@HyperrefMacros
     \theoremstyle{Break}
 
     \newaliascnt{lemma}{theorem}
 
+    \ifTS@loadBareEnvs
+    \newtheorem{lemma}[lemma]{Lemma}
+    \else
     \newmdtheoremenv[style=lemma]{lemma}[lemma]{Lemma}
+    \fi
 
     \aliascntresetthe{lemma}
 
     \providecommand*{\lemmaautorefname}{Lemma}
   \else
     \theoremstyle{Break}
+
+    \ifTS@loadBareEnvs
+    \newtheorem{lemma}[theorem]{Lemma}
+    \else
     \newmdtheoremenv[style=lemma]{lemma}[theorem]{Lemma}
+    \fi
   \fi
 
     \theoremstyle{BreakNoNumber}
 
+    \ifTS@loadBareEnvs
+    \newtheorem*{lemma*}{Lemma}
+    \else
     \newmdtheoremenv[style=lemma]{lemma*}{Lemma}
+    \fi
 
 %    \end{macrocode}
 % \iffalse
