@@ -199,6 +199,12 @@
     {}{\bfseries}{}{\newline}%
     {\thmname{#1} \thmnumber{#2}: \thmnote{#3}}
 
+  \newtheoremstyle{Theorem*}{}{}{}%
+    {}{\bfseries}{}{\newline}%
+    {\thmname{#1}:\thmnote{\ #3}}%
+
+  \ifTS@loadBareEnvs
+  \else
   \mdfdefinestyle{theorem}{%
     skipabove=\envVertSkip,%
     skipbelow=\envVertSkip,%
@@ -209,17 +215,25 @@
     linewidth=.05cm,%
     backgroundcolor=back-blue!20%
     }
+  \fi
+
 
   \theoremstyle{Theorem}
 
+  \ifTS@loadBareEnvs
+  \newtheorem{theorem}{Theorem}[\TS@envRefreshLevel]
+  \else
   \newmdtheoremenv[style=theorem]{theorem}%
   {Theorem}[\TS@envRefreshLevel]
+  \fi
 
-  \newtheoremstyle{Theorem*}{}{}{}%
-    {}{\bfseries}{}{\newline}%
-    {\thmname{#1}:\thmnote{\ #3}}%
   \theoremstyle{Theorem*}
+
+  \ifTS@loadBareEnvs
+  \newtheorem*{theorem*}{Theorem}
+  \else
   \newmdtheoremenv[style=theorem]{theorem*}{Theorem}
+  \fi
 
 %    \end{macrocode}
 % \iffalse
